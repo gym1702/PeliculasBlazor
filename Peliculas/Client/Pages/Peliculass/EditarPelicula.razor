@@ -1,0 +1,50 @@
+﻿@page "/peliculas/editar/{peliculaId:int}"
+
+@inject IJSRuntime js
+
+
+
+<FormularioPelicula OnValidSubmit="Editar" Pelicula="Pelicula" 
+        GenerosNoSeleccionados="GenerosNoSeleccionados" 
+        GenerosSeleccionados="GenerosSeleccionados" />
+
+
+
+@code {
+    [Parameter] public int peliculaId { get; set; }
+    private Pelicula Pelicula;
+    private List<Genero> GenerosSeleccionados = new List<Genero>();
+    private List<Genero> GenerosNoSeleccionados = new List<Genero>();
+
+
+    protected override void OnInitialized()
+    {
+
+        GenerosNoSeleccionados = new List<Genero>()
+        {
+            new Genero(){ Id = 1, Nombre = "Comedia"},
+            new Genero(){ Id = 2, Nombre = "Terror"},
+
+            new Genero(){ Id = 4, Nombre = "Suspenso"}
+        };
+
+        GenerosSeleccionados = new List<Genero>()
+        {
+            new Genero(){ Id = 3, Nombre = "Drama"},
+        };
+
+        
+        Pelicula = new Pelicula() 
+        {
+            Id = peliculaId, 
+            Titulo = "Spider-Man",
+            Lanzamiento = DateTime.Today
+        };
+    }
+
+    //Metodo para editar
+    private async void Editar()
+    {
+        await js.InvokeVoidAsync("alert", $"Se actializo la pelicula {Pelicula.Titulo}");
+    }
+}

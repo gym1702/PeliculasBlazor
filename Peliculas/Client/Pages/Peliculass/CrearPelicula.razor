@@ -1,0 +1,34 @@
+﻿@page "/peliculas/crear"
+
+@inject IJSRuntime js
+
+
+
+<FormularioPelicula OnValidSubmit="Crear" GenerosNoSeleccionados="GenerosNoSeleccionados" 
+       Pelicula="Pelicula" />
+
+
+
+@code {
+    //Llamar al Modelo
+    private Pelicula Pelicula = new Pelicula();
+    private List<Genero> GenerosNoSeleccionados = new List<Genero>();
+
+    protected override void OnInitialized()
+    {
+        GenerosNoSeleccionados = new List<Genero>()
+        {
+            new Genero(){ Id = 1, Nombre = "Comedia"},
+            new Genero(){ Id = 2, Nombre = "Terror"},
+            new Genero(){ Id = 3, Nombre = "Drama"},
+            new Genero(){ Id = 4, Nombre = "Suspenso"}
+        };
+    }
+
+    //Metodo para el Crear
+    private async void Crear()
+    {
+        await js.InvokeVoidAsync("alert", $"Se agrego la pelicula {Pelicula.Titulo}");
+    }
+
+}

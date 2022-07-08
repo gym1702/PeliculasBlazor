@@ -1,0 +1,15 @@
+﻿@page "/pelicula/{peliculaId:int}"
+@page "/pelicula/{peliculaId:int}/{nombrePelicula}"
+
+<h3>Visualizar Pelicula</h3>
+
+@code {
+
+    [Parameter] public int peliculaId { get; set; }
+    [Parameter] public int nombrePelicula { get; set; }
+
+    protected override void OnInitialized()
+    {
+        
+    }
+}

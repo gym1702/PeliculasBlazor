@@ -1,0 +1,25 @@
+﻿@page "/generos/editar/{generoId:int}"
+
+@inject IJSRuntime js
+
+
+<FormularioGenero OnValidSubmit="Editar" Genero="Genero"/>
+
+
+
+@code {
+    [Parameter] public int generoId { get; set; }
+
+    private Genero Genero;
+
+    protected override void OnInitialized()
+    {
+        Genero = new Genero() { Id = generoId, Nombre = "Comedia" };
+    }
+
+    //Metodo para editar
+    private async void Editar()
+    {
+        await js.InvokeVoidAsync("alert", $"Se actializo el geneo {Genero.Nombre}");
+    }
+}

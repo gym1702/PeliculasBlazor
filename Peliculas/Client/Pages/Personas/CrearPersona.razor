@@ -1,0 +1,35 @@
+﻿@page "/personas/crear"
+
+@inject IJSRuntime js
+@inject IRepositorio repositorio
+@inject IMostrarMensajes MostrarMensajes
+@inject NavigationManager NavigationManager
+
+
+
+<FormularioPersona OnValidSubmit="Crear" Persona="Persona" />
+
+
+
+@code {
+    //Llamar al Modelo
+    private Persona Persona = new Persona();
+
+    //Metodo para el Crear
+    private async Task Crear()
+    {
+        var httpResponse = await repositorio.Post("api/personas", Persona);
+        if (httpResponse.Error)
+        {
+            var body = await httpResponse.GetBody();
+            await MostrarMensajes.MostrarMensajeError(body);
+        }
+        else
+        {
+            await js.InvokeVoidAsync("alert", $"Se agrego a la persona: {Persona.Nombre} exitosamente ");
+            NavigationManager.NavigateTo("/personas");
+        }
+
+        
+    }
+}

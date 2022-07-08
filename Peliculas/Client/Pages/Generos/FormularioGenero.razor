@@ -1,0 +1,33 @@
+﻿@inject IJSRuntime js
+
+<div class="card" style="color:darkblue">
+    <div class="card-header">
+        <h4>Géneros</h4>
+    </div>
+
+    <div class="card-body">
+        <EditForm Model="Genero" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <div>
+                    <InputText class="form-control" @bind-Value="Genero.Nombre" />
+                    <ValidationMessage For="@(() => Genero.Nombre)" />
+                </div>
+            </div>
+            <div align="right">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    //Parametro para el modelo
+    [Parameter] public Genero Genero { get; set; }
+    //Parametro para OnValidSubmit
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    
+}

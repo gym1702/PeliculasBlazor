@@ -1,0 +1,41 @@
+﻿@inject IJSRuntime js
+
+<div style="display: flex; flex-wrap: wrap; align-items: center;">
+    @if (Peliculas == null)
+    {
+        <img src="https://1ws1cf1ovipj2gw7cr2rclsq-wpengine.netdna-ssl.com/wp-content/themes/vnahealth/images/loader.gif" width="100" height="100" />
+        <text>Cargando...</text>
+    }
+    else if (Peliculas.Count == 0)
+    {
+        <text>No hay registros para mostrar...</text>
+    }
+    else
+    {
+        @foreach (var peli in Peliculas)
+        {
+            <PeliculaIndividual Pelicula="peli"
+                        EliminarPelicula="EliminarPelicula" />
+            <br />
+        }
+    }
+</div>
+
+
+
+
+@code {
+
+    [Parameter] public List<Pelicula> Peliculas { get; set; }
+
+    async Task EliminarPelicula(Pelicula pelicula)
+    {       
+        var confirmar = await js.Confirm($"¿Desea eliminar la pelicula {pelicula.Titulo}?");
+        if (confirmar)
+        {
+            Peliculas.Remove(pelicula);
+            Console.WriteLine($"Se ha eliminada la pelicula: {pelicula.Titulo}");
+        }
+    }
+
+}
